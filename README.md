@@ -6,29 +6,20 @@
 
 
 
-## [Demo](https://codesandbox.io/s/react-stackoverflow-card-0tehm?file=/src/App.js)
-
 ## Install
 
 ```bash
-npm install --save react-stackoverflow-card
+npm install --save @cagdaskemik/stackoverflowcard
 ```
 
 ## Usage
 
-```jsx
-import React from 'react'
+```js
 
-import { StackOverflowProfile } from 'react-stackoverflow-card'
-import 'react-stackoverflow-card/dist/index.css'
-// id is your stackoverflow id which can be found in your profile link
-const App = () => {
-  return <StackOverflowProfile id='840186' containerStyle={{ backgroundColor: 'white' }} />
-}
+<stack-overflow-profile data-id="10533487" data-color="#ff9a1f" data-color-secondary="#ffffff"></stack-overflow-profile>
 
-export default App
 ```
 
 ## License
 
-MIT © [saadqbal](https://github.com/saadqbal)
+MIT © [cagdaskemik](https://github.com/cagdaskemik)
