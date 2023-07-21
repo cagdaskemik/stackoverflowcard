@@ -165,7 +165,7 @@ template.innerHTML = `
 
 class StackOverflowProfile extends HTMLElement {
   static get observedAttributes() {
-    return ['data-id', 'data-color', 'data-color-secondary', 'data-width', 'data-height'];
+    return ['id', 'color', 'color-secondary', 'width', 'height'];
   }
 
   constructor() {
@@ -175,33 +175,33 @@ class StackOverflowProfile extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    if (name === 'data-color' || name === 'data-color-secondary') {
+    if (name === 'color' || name === 'color-secondary') {
       this.updateGradient();
     }
-    if (name === 'data-id') {
+    if (name === 'id') {
       this.fetchAndRender();
     }
-    if (name === 'data-width' || name === 'data-height') {
+    if (name === 'width' || name === 'height') {
       this.updateSize();
     }
   }
 
   updateSize() {
-    const width = this.getAttribute('data-width') || '100%';
-    const height = this.getAttribute('data-height') || '100%';
+    const width = this.getAttribute('width') || '100%';
+    const height = this.getAttribute('height') || '100%';
     const card = this._shadowRoot.querySelector(".so_card");
     card.style.width = width;
     card.style.height = height;
   }
 
   updateGradient() {
-    const color1 = this.getAttribute('data-color') || 'white';
-    const color2 = this.getAttribute('data-color-secondary') || 'white';
+    const color1 = this.getAttribute('color') || 'white';
+    const color2 = this.getAttribute('color-secondary') || 'white';
     this._shadowRoot.querySelector(".so_card").style.background = `linear-gradient(${color1}, ${color2})`;
   }
 
   async fetchAndRender() {
-    const id = this.getAttribute('data-id');
+    const id = this.getAttribute('id');
     if (!id) return;
     
     const data = await fetch(`https://api.stackexchange.com/2.2/users/${id}?site=stackoverflow`)
