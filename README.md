@@ -1,8 +1,9 @@
-# react-stackoverflow-card
+# stackoverflow-card
 ### a simple & lightweight .js stackoverflow profile card component
 > show your stackoverflow profile details as a card. You can set gradient color background with color and color-secondary attributes
 
-[![NPM](https://img.shields.io/npm/v/@cagdaskemik/stackoverflowcard.svg)](https://www.npmjs.com/package/@cagdaskemik/stackoverflowcard) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/@cagdaskemik/stackoverflowcard.svg)](https://www.npmjs.com/package/@cagdaskemik/stackoverflowcard) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)![NPM Downloads](https://img.shields.io/npm/dw/@cagdaskemik/stackoverflowcard)
+
 
 
 
