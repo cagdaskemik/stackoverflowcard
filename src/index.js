@@ -166,71 +166,71 @@ if (typeof document !== "undefined") {
       <div class="so_card"></div>
   `;
 }
+if (typeof window !== 'undefined') {
+  class StackOverflowProfile extends HTMLElement {
+    static get observedAttributes() {
+      return ['id', 'color', 'color-secondary', 'width', 'height'];
+    }
 
-class StackOverflowProfile extends HTMLElement {
-  static get observedAttributes() {
-    return ['id', 'color', 'color-secondary', 'width', 'height'];
-  }
+    constructor() {
+      super();
+      this._shadowRoot = this.attachShadow({ mode: "open" });
+      this._shadowRoot.appendChild(template.content.cloneNode(true));
+    }
 
-  constructor() {
-    super();
-    this._shadowRoot = this.attachShadow({ mode: "open" });
-    this._shadowRoot.appendChild(template.content.cloneNode(true));
-  }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (this.isConnected) {
-      if (name === 'color' || name === 'color-secondary') {
-        this.updateGradient();
-      }
-      if (name === 'id') {
-        this.fetchAndRender();
-      }
-      if (name === 'width' || name === 'height') {
-        this.updateSize();
+    attributeChangedCallback(name, oldValue, newValue) {
+      if (this.isConnected) {
+        if (name === 'color' || name === 'color-secondary') {
+          this.updateGradient();
+        }
+        if (name === 'id') {
+          this.fetchAndRender();
+        }
+        if (name === 'width' || name === 'height') {
+          this.updateSize();
+        }
       }
     }
-  }
 
-  updateSize() {
-    const width = this.getAttribute('width') || '100%';
-    const height = this.getAttribute('height') || '100%';
-    const card = this._shadowRoot.querySelector(".so_card");
-    card.style.width = width;
-    card.style.height = height;
-  }
-
-  updateGradient() {
-    const color1 = this.getAttribute('color') || 'white';
-    const color2 = this.getAttribute('color-secondary') || 'white';
-    this._shadowRoot.querySelector(".so_card").style.background = `linear-gradient(${color1}, ${color2})`;
-  }
-
-  async fetchAndRender() {
-    const id = this.getAttribute('id');
-    if (!id) return;
-    
-    const data = await fetch(`https://api.stackexchange.com/2.2/users/${id}?site=stackoverflow`)
-      .then(response => response.json())
-    
-    const so = data.items && data.items[0];
-    this.createCard(so);
-  }
-
-  connectedCallback() {
-    this.fetchAndRender();
-    this.updateGradient();
-    this.updateSize();
-  }
-
-  createCard(data) {
-    const card = this._shadowRoot.querySelector(".so_card");
-    const color1 = this.getAttribute('color') || 'white';
-  const color2 = this.getAttribute('color-secondary') || 'white';
-    if (card) {
-      card.style.background = `linear-gradient(${color1}, ${color2})`;
+    updateSize() {
+      const width = this.getAttribute('width') || '100%';
+      const height = this.getAttribute('height') || '100%';
+      const card = this._shadowRoot.querySelector(".so_card");
+      card.style.width = width;
+      card.style.height = height;
     }
-    card.innerHTML = `
+
+    updateGradient() {
+      const color1 = this.getAttribute('color') || 'white';
+      const color2 = this.getAttribute('color-secondary') || 'white';
+      this._shadowRoot.querySelector(".so_card").style.background = `linear-gradient(${color1}, ${color2})`;
+    }
+
+    async fetchAndRender() {
+      const id = this.getAttribute('id');
+      if (!id) return;
+
+      const data = await fetch(`https://api.stackexchange.com/2.2/users/${id}?site=stackoverflow`)
+        .then(response => response.json())
+
+      const so = data.items && data.items[0];
+      this.createCard(so);
+    }
+
+    connectedCallback() {
+      this.fetchAndRender();
+      this.updateGradient();
+      this.updateSize();
+    }
+
+    createCard(data) {
+      const card = this._shadowRoot.querySelector(".so_card");
+      const color1 = this.getAttribute('color') || 'white';
+      const color2 = this.getAttribute('color-secondary') || 'white';
+      if (card) {
+        card.style.background = `linear-gradient(${color1}, ${color2})`;
+      }
+      card.innerHTML = `
       <a href=${data.link} target='_blank' class='so_profile_link' />
       <div class='so_header'>
         <span class='so_logo'>
@@ -261,9 +261,10 @@ class StackOverflowProfile extends HTMLElement {
         </span>
       </div>
     `;
+    }
   }
-}
 
-if (typeof window !== 'undefined' && !customElements.get("stack-overflow-profile")) {
-  customElements.define("stack-overflow-profile", StackOverflowProfile);
+  if (typeof window !== 'undefined' && !customElements.get("stack-overflow-profile")) {
+    customElements.define("stack-overflow-profile", StackOverflowProfile);
+  }
 }
