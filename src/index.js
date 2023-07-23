@@ -155,13 +155,16 @@ function formatNumbers(num) {
 }
 
 // Create a template element and set its innerHTML
-const template = document.createElement("template");
-template.innerHTML = `
-    <style>
-        ${widgetStyle}
-    </style>
-    <div class="so_card"></div>
-`;
+
+if (typeof document !== "undefined") {
+  template = document.createElement("template");
+  template.innerHTML = `
+      <style>
+          ${widgetStyle}
+      </style>
+      <div class="so_card"></div>
+  `;
+}
 
 class StackOverflowProfile extends HTMLElement {
   static get observedAttributes() {
@@ -175,14 +178,16 @@ class StackOverflowProfile extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    if (name === 'color' || name === 'color-secondary') {
-      this.updateGradient();
-    }
-    if (name === 'id') {
-      this.fetchAndRender();
-    }
-    if (name === 'width' || name === 'height') {
-      this.updateSize();
+    if (this.isConnected) {
+      if (name === 'color' || name === 'color-secondary') {
+        this.updateGradient();
+      }
+      if (name === 'id') {
+        this.fetchAndRender();
+      }
+      if (name === 'width' || name === 'height') {
+        this.updateSize();
+      }
     }
   }
 
@@ -219,6 +224,11 @@ class StackOverflowProfile extends HTMLElement {
 
   createCard(data) {
     const card = this._shadowRoot.querySelector(".so_card");
+    const color1 = this.getAttribute('color') || 'white';
+  const color2 = this.getAttribute('color-secondary') || 'white';
+    if (card) {
+      card.style.background = `linear-gradient(${color1}, ${color2})`;
+    }
     card.innerHTML = `
       <a href=${data.link} target='_blank' class='so_profile_link' />
       <div class='so_header'>
@@ -253,6 +263,6 @@ class StackOverflowProfile extends HTMLElement {
   }
 }
 
-if (!customElements.get("stack-overflow-profile")) {
+if (typeof window !== 'undefined' && !customElements.get("stack-overflow-profile")) {
   customElements.define("stack-overflow-profile", StackOverflowProfile);
 }

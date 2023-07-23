@@ -1,6 +1,6 @@
 {
   "name": "@cagdaskemik/stackoverflowcard",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A stackoverflow profile card with custom color option.",
   "main": "/src/index.js",
   "scripts": {
