@@ -155,6 +155,7 @@ function formatNumbers(num) {
 }
 
 // Create a template element and set its innerHTML
+let template;
 
 if (typeof document !== "undefined") {
   template = document.createElement("template");
