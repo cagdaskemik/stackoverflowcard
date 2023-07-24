@@ -25,6 +25,7 @@ import '@cagdaskemik/stackoverflowcard'
         width="200px" 
         height="230px"></stack-overflow-profile>
 ```
+![image](https://github.com/cagdaskemik/stackoverflowcard/assets/108903103/3863faeb-f9e3-4836-aab9-68f7cc35f7e9)
 
 ## License
 
